@@ -1,23 +1,22 @@
 import axios from "axios";
-import { type Movie } from "../types/movie";
+import { type MoviesResponse } from "../types/movie";
 
 const API_KEY = import.meta.env.VITE_TMDB_TOKEN;
 const BASE_URL = "https://api.themoviedb.org/3";
 
-interface SearchResponse {
-  results: Movie[];
-}
 
-export async function fetchMovies(query: string): Promise<Movie[]> {
+
+export async function fetchMovies(query: string, page: number): Promise<MoviesResponse> {
   if (!API_KEY) {
     throw new Error("TMDB token is not defined in environment variables.");
   }
 
-  const response = await axios.get<SearchResponse>(
+  const response = await axios.get<MoviesResponse>(
     `${BASE_URL}/search/movie`,
     {
       params: {
         query: query,
+        page: page,
       },
       headers: {
         Authorization: `Bearer ${API_KEY}`,
@@ -25,5 +24,5 @@ export async function fetchMovies(query: string): Promise<Movie[]> {
     }
   );
 
-  return response.data.results;
+  return response.data;
 }
