@@ -7,6 +7,7 @@ import MovieModal from "../MovieModal/MovieModal";
 import Loader from "../Loader/Loader";
 import toast, { Toaster } from "react-hot-toast";
 import { type Movie } from "../../types/movie";
+import { fetchMovies } from "../../services/movieService";
 import ReactPaginate from "react-paginate";
 import css from "./App.module.css";
 
